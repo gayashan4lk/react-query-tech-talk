@@ -20,18 +20,15 @@ export default function Home() {
   if (!data) return <div>Posts are unavailable.</div>;
 
   return (
-    <main
-      className={'flex min-h-screen flex-col items-center justify-between p-24'}
-    >
-      <div>
-        <ul>
-          {data.map((post: Post) => (
-            <li key={post.id}>
-              <Link href={`/posts/${post.id}`}>{post.title}</Link>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </main>
+    <div>
+      <h1 className="font-bold text-2xl py-2">Posts</h1>
+      <ul>
+        {data.map((post: Post) => (
+          <li key={post.id} className="font-bold py-1 text-sky-600">
+            <Link href={`/posts/${post.id}`}>{post.title}</Link>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }

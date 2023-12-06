@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useQuery } from 'react-query';
-import type { Post } from '../../types/types';
+import type { Post, User } from '../../types/types';
 import Link from 'next/link';
 
 export default function Page() {
@@ -25,9 +25,39 @@ export function Post({ id }: PostProps) {
     return data;
   }
 
-  const { data, isLoading, isError, error } = useQuery(['post', id], () =>
-    getPost(id)
+  async function getUser(userId: number): Promise<User> {
+    const { data } = await axios.get(
+      `https://jsonplaceholder.typicode.com/users/${id}`
+    );
+    return data;
+  }
+
+  const { data, isLoading, isError, error } = useQuery(
+    ['post', id],
+    () => getPost(id),
+    {
+      onError: (error) => {
+        console.log(error);
+      },
+      onSuccess: (data) => {
+        console.log(data);
+      },
+    }
   );
+
+  const {
+    data: user,
+    isLoading: userIsLoading,
+    isError: userIsError,
+    error: userError,
+  } = useQuery(['user', data?.userId], () => getUser(data?.userId as number), {
+    onError: (error) => {
+      console.log(error);
+    },
+    onSuccess: (data) => {
+      console.log(data);
+    },
+  });
 
   if (isLoading) return <div>Loading...</div>;
 
@@ -36,11 +66,15 @@ export function Post({ id }: PostProps) {
   if (!data) return <div>Post is unavailable.</div>;
 
   return (
-    <div>
+    <div className="max-w-screen-sm">
       <h1 className="text-2xl font-bold py-3">{data.title}</h1>
       <p className="py-1">{data.body}</p>
-      <span>userId: {data.userId}</span>
-      <Link className="block text-blue-600 font-bold" href="/">
+      <div className="text-sm font-semibold">
+        {userIsLoading && <span>Loading...</span>}
+        {userIsError && <span>Oh snap, Error occured!</span>}
+        {user && <span>Author: {user.name}</span>}
+      </div>
+      <Link className="block text-blue-600 font-bold py-5" href="/">
         Back
       </Link>
     </div>
