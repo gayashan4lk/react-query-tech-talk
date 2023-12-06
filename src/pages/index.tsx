@@ -1,10 +1,10 @@
-import Image from 'next/image';
-import { Inter } from 'next/font/google';
 import { useQuery } from 'react-query';
 import axios from 'axios';
+import type { Post } from '../types/types';
+import Link from 'next/link';
 
 export default function Home() {
-  async function getPosts() {
+  async function getPosts(): Promise<Post[]> {
     const { data } = await axios.get(
       'https://jsonplaceholder.typicode.com/posts'
     );
@@ -17,11 +17,21 @@ export default function Home() {
 
   if (isError) return <div>{JSON.stringify(error)}</div>;
 
+  if (!data) return <div>Posts are unavailable.</div>;
+
   return (
     <main
       className={'flex min-h-screen flex-col items-center justify-between p-24'}
     >
-      <div>{JSON.stringify(data)}</div>
+      <div>
+        <ul>
+          {data.map((post: Post) => (
+            <li key={post.id}>
+              <Link href={`/posts/${post.id}`}>{post.title}</Link>
+            </li>
+          ))}
+        </ul>
+      </div>
     </main>
   );
 }
