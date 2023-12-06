@@ -11,17 +11,17 @@ export default function Home() {
     return data;
   }
 
-  const postsQuery = useQuery('posts', getPosts);
+  const { data, isLoading, isError, error } = useQuery('posts', getPosts);
 
-  if (postsQuery.isLoading) return <div>Loading...</div>;
+  if (isLoading) return <div>Loading...</div>;
 
-  if (postsQuery.isError) return <div>Error</div>;
+  if (isError) return <div>{JSON.stringify(error)}</div>;
 
   return (
     <main
       className={'flex min-h-screen flex-col items-center justify-between p-24'}
     >
-      <div>{JSON.stringify(postsQuery.data)}</div>
+      <div>{JSON.stringify(data)}</div>
     </main>
   );
 }
