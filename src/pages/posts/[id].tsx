@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useQuery } from 'react-query';
 import type { Post } from '../../types/types';
+import Link from 'next/link';
 
 export default function Page() {
   const router = useRouter();
@@ -38,7 +39,10 @@ export function Post({ id }: PostProps) {
     <div>
       <h1 className="text-2xl font-bold py-3">{data.title}</h1>
       <p className="py-1">{data.body}</p>
-      <span>{data.userId}</span>
+      <span>userId: {data.userId}</span>
+      <Link className="block text-blue-600 font-bold" href="/">
+        Back
+      </Link>
     </div>
   );
 }
