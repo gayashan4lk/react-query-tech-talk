@@ -69,7 +69,7 @@ export function Post({ id }: PostProps) {
     <div className="max-w-screen-sm">
       <h1 className="text-2xl font-bold py-3">{data.title}</h1>
       <p className="py-1">{data.body}</p>
-      <div className="text-sm font-semibold">
+      <div className="text-sm font-semibold py-2">
         {userIsLoading && <span>Loading...</span>}
         {userIsError && <span>Oh snap, Error occured!</span>}
         {user && <span>Author: {user.name}</span>}
