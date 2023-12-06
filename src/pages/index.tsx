@@ -31,7 +31,7 @@ export default function Home() {
         {data.map((post: Post) => (
           <li
             key={post.id}
-            className="font-semibold py-1 text-slate-600 underline hover:underline hover:decoration-sky-500"
+            className="font-semibold py-1 text-slate-600 underline hover:underline hover:decoration-sky-500 hover:text-sky-500"
           >
             <Link href={`/posts/${post.id}`}>{post.title}</Link>
           </li>
