@@ -74,7 +74,7 @@ export function Post({ id }: PostProps) {
         {userIsError && <span>Oh snap, Error occured!</span>}
         {user && <span>Author: {user.name}</span>}
       </div>
-      <Link className="block text-blue-600 font-bold py-5" href="/">
+      <Link className="block text-sky-500 font-bold py-5" href="/">
         Back
       </Link>
     </div>

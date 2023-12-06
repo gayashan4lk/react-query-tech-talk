@@ -22,9 +22,17 @@ export default function Home() {
   return (
     <div>
       <h1 className="font-bold text-2xl py-2">Posts</h1>
+      <Link href="/posts/new">
+        <div className="font-semibold text-slate-600 bg-sky-200 hover:bg-sky-400 hover:text-white p-3 my-2 rounded-lg w-fit">
+          <span>Create New Post</span>
+        </div>
+      </Link>
       <ul>
         {data.map((post: Post) => (
-          <li key={post.id} className="font-bold py-1 text-sky-600">
+          <li
+            key={post.id}
+            className="font-semibold py-1 text-slate-600 underline hover:underline hover:decoration-sky-500"
+          >
             <Link href={`/posts/${post.id}`}>{post.title}</Link>
           </li>
         ))}
